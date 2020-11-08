@@ -32,6 +32,8 @@ class AlunoDisciplina(models.Model):
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length=100, blank=True, null=True)
+    cursos = models.ManyToManyField('Curso', through='CursoDisciplina')
+    alunos = models.ManyToManyField('Aluno', through='AlunoDisciplina')
 
     class Meta:
         managed = False

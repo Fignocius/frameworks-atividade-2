@@ -27,7 +27,11 @@ urlpatterns = [
     path('cursos/', views.cursosview, name='cursos'),
     path('cursos/<int:pk>', views.cursoshowview, name='cursos-show'),
     path('cursos/update/<int:pk>', views.cursoupdateview, name='cursos-update'),
-    path('cursas/create', views.cursocreateview, name='cursos-create'),
+    path('cursos/create', views.cursocreateview, name='cursos-create'),
     path('cursos/delete/<int:pk>', views.cursodeleteview, name='cursos-delete'),
     path('disciplinas/', views.disciplinasview, name='disciplinas'),
+    path('disciplinas/<int:pk>', views.disciplinashowview, name='disciplinas-show'),
+    path('disciplinas/update/<int:pk>', views.disciplinaupdateview, name='disciplinas-update'),
+    path('disciplinas/create', views.disciplinacreateview, name='disciplinas-create'),
+    path('disciplinas/delete/<int:pk>', views.disciplinadeleteview, name='disciplinas-delete'),
 ]

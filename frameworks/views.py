@@ -51,7 +51,6 @@ def alunoshowview(request, pk):
     return render(request, 'alunos/show.html', context)
 
 
-
 class CursosForm(ModelForm):
     class Meta:
         model = Curso
@@ -100,7 +99,46 @@ def cursoshowview(request, pk):
     return render(request, 'cursos/show.html', context)
 
 
+class DisciplinasForm(ModelForm):
+    class Meta:
+        model = Disciplina
+        fields = ['nome']
+
+
 def disciplinasview(request):
     queryset = Disciplina.objects.all()
     context = {'disciplinas': queryset}
     return render(request, 'disciplinas/list.html', context)
+
+
+def disciplinacreateview(request):
+    form = DisciplinasForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('disciplinas')
+    return render(request, 'disciplinas/create.html')
+
+
+def disciplinadeleteview(request, pk):
+    disciplina = get_object_or_404(Disciplina, pk=pk)
+    if request.method == 'POST':
+        disciplina.delete()
+    return redirect('disciplinas')
+
+
+def disciplinaupdateview(request, pk):
+    disciplina = get_object_or_404(Disciplina, pk=pk)
+    context = {'disciplina': disciplina}
+    if request.method == 'POST':
+        form = DisciplinasForm(request.POST or None, instance=disciplina)
+        if form.is_valid():
+            form.save()
+            return redirect('disciplinas')
+    return render(request, 'disciplinas/update.html', context)
+
+
+def disciplinashowview(request, pk):
+    queryset = get_object_or_404(Disciplina, pk=pk)
+    context = {'disciplina': queryset}
+    return render(request, 'disciplinas/show.html', context)

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Visualizar disciplina{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>Dados da disciplina</h2>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-primary" href="{% url 'disciplinas' %}" title="Go back"> <i class="fas fa-backward "></i> </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                <strong>Disciplina:</strong>
+                {{ disciplina.nome}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <strong>Cursos:</strong>
+                {% for curso in disciplina.cursos.all %}
+                     <form action="" method="POST" class="form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">{{ curso.nome }}</div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <a href="">
+                                    <i class="fas fa-edit  fa-lg"></i>
+                                </a>
+                                {% csrf_token %}
+                                <button type="submit" title="delete" style="border: none; background-color:transparent;">
+                                    <i class="fas fa-trash fa-lg text-danger"></i>
+                                </button>
+                            </div>
+                    </form>
+                {% endfor %}
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <strong>Alunos:</strong>
+                {% for aluno in disciplina.alunos.all %}
+                     <form action="" method="POST" class="form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">{{ aluno.nome }}</div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <a href="">
+                                    <i class="fas fa-edit  fa-lg"></i>
+                                </a>
+                                {% csrf_token %}
+                                <button type="submit" title="delete" style="border: none; background-color:transparent;">
+                                    <i class="fas fa-trash fa-lg text-danger"></i>
+                                </button>
+                            </div>
+                    </form>
+                {% endfor %}
+        </div>
+        <div class="pull-left">
+            <a class="btn btn-success" href="" title="vincular disciplina"> <i class="fas fa-plus-circle"></i>
+            </a>
+        </div>
+    </div>
+{% endblock %}
