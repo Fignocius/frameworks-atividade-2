@@ -11,6 +11,7 @@ from django.db import models
 class Aluno(models.Model):
     nome = models.CharField(max_length=100, blank=True, null=True)
     idcurso = models.ForeignKey('Curso', models.DO_NOTHING, db_column='idCurso', blank=True, null=True)  # Field name made lowercase.
+    disciplinas = models.ManyToManyField('Disciplina', through='AlunoDisciplina')
 
     class Meta:
         managed = False
@@ -29,8 +30,17 @@ class AlunoDisciplina(models.Model):
         unique_together = (('idaluno', 'iddisciplina', 'semestre'),)
 
 
+class Disciplina(models.Model):
+    nome = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'disciplina'
+
+
 class Curso(models.Model):
     nome = models.CharField(max_length=100, blank=True, null=True)
+    disciplinas = models.ManyToManyField('Disciplina', through='CursoDisciplina')
 
     class Meta:
         managed = False
@@ -45,11 +55,3 @@ class CursoDisciplina(models.Model):
         managed = False
         db_table = 'curso_disciplina'
         unique_together = (('idcurso', 'iddisciplina'),)
-
-
-class Disciplina(models.Model):
-    nome = models.CharField(max_length=100, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'disciplina'
