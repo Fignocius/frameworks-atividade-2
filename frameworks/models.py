@@ -11,7 +11,7 @@ from django.db import models
 class Aluno(models.Model):
     nome = models.CharField(max_length=100, blank=True, null=True)
     idcurso = models.ForeignKey('Curso', models.DO_NOTHING, db_column='idCurso', blank=True, null=True)  # Field name made lowercase.
-    disciplinas = models.ManyToManyField('Disciplina', through='AlunoDisciplina')
+    disciplinas = models.ManyToManyField('Disciplina', through='AlunoDisciplina', related_name='disciplinas')
 
     class Meta:
         managed = False
